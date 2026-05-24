@@ -1,0 +1,183 @@
+\chapter{Preventive security with digital twins and decentralized AI agents}
+\label{chap:02}
+\setlength{\parskip}{1em}
+
+\section{Paradigm shift towards constant and continuous security}
+
+Therefore, this study proposes adopting principles from existing malware and binary analysis tools with digital forensics, which can be integrated into the process of collecting and analyzing both malware and legitimate components. These toolkits can effectively complement modern SCA approaches and enable a paradigm shift, as illustrated in Figure \ref{fig:paradigm_shift_for_sca}. It redirects the purpose of existing solutions toward a different target audience and analytical focus from regular end users to developers. Although this may appear to be a minor shift, it is both critical to have and straightforward to integrate.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\textwidth]{../figures/paradigm_shift_for_sca.pdf}
+    \caption{Paradigm shift by applying principles from malware and binary analysis for SCA-related tasks.}
+    \label{fig:paradigm_shift_for_sca}
+\end{figure}
+
+These systems are essential tools for a range of specialists, including reverse engineers, malware researchers, RnD (research and development) analysts, and SOC (security operations center) analysts, who use them to gain in-depth insights into malware behavior and potential threats. Companies often deploy these solutions in various configurations, including on-premises and SaaS models, as shown in Figure \ref{fig:landscape_of_well_known_solutions} from \cite{bistarelli2025classification}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\textwidth]{../figures/landscape_of_well_known_solutions.pdf}
+    \caption{Landscape of well-known solutions for security analysis and sandboxing. On-premises deployment is local within the organization due to data confidentiality and security requirements. SaaS platforms contribute to broader landscape by aggregating and analyzing threat data from multiple worldwide sources.}
+    \label{fig:landscape_of_well_known_solutions}
+\end{figure}
+
+Sandboxing approach is validated by NIST for ZTA, where it is recommended to manage software examination within isolated execution environments before allowing to add or change of any component into the IT infrastructure \cite[Ch. 3.2.4]{rose2020zero}, as demonstrated in Figure \ref{fig:transition_to_continuous_security_cycle}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../figures/transition_to_continuous_security_cycle.pdf}
+    \caption{Transition to cycle of continuous security (SOC - security operations center; MSSP - managed security service provider): (1) Passive analysis with sandboxes and honeypots. (2) Reactive analysis with digital twins of IT infrastructures with AI agents.}
+    \label{fig:transition_to_continuous_security_cycle}
+\end{figure}
+
+However, only passive analysis with sandboxes and honeypots is limited, because security engineers cannot predict some situations due to a small subset of analyzed artifacts and insufficient data. Also, the behavior observed in a sandboxed environment is not always representative of the real system. Therefore, organizations should strive to simulate the original infrastructure and everything in it to be exactly precise to the production instance in order to obtain more correct and realistic results in general. Full-scale digital twins allow to create copies of specific workstations up to entire large systems as complex real-time simulations \cite{alhamam2025comprehensive}. They might significantly reduce the time and cost of testing and validation, making the process truly continuous and assisting in identifying critical problems before publication into production. In essence, such an analysis laboratory establishes a validation and feedback loop against constantly expanding attack surfaces, where security specialists can simulate multiple attack scenarios and gather all data from the IT infrastructure. It also provides the following features and opportunities:
+\begin{itemize}
+    \item Digital hygiene via a mirrored, restricted, and remote environment for isolation and security. This ensures that any incoming untrusted artifacts from external sources, which may pose a hazard, do not create high risks associated with local execution during the parsing, downloading, and executing processes.
+    \item The connection can be secured by an encrypted VPN (virtual private network) tunnel, enabling the safe use of RPC (remote procedure calls), SSH (secure shell) connections, HTTP/HTTPS (hypertext transfer protocol) transfers, and so on. Additionally, the instance is restricted by a firewall to block all unauthorized inbound connections and prevent outbound connections (egress filtering) to mitigate risks such as reverse shells.
+    \item Hardening the environment to ensure a bad actor cannot interfere with or compromise data collection. For example, preventing a scenario where a malicious package contains a script that disrupts the installed monitoring agent or spoofs the collected data.
+    \item Regularly deconstructing and reconstructing IT infrastructure from self-documenting files. This opens opportunities for dynamic and configurable end-to-end testing, what-if analysis, and chaos engineering.
+    \item Immediately destroying an instance and clearing its resources upon completion of a task execution, meaning it is being constantly recreated by a new one as temporary and immutable (similar to short-living or stateless serverless functions). Such a mechanism minimizes the risk of sandbox escape, preventing a malicious actor from pivoting into internal infrastructure through the sandbox environment.
+    \item Portability and compatibility across various targets (device architectures, hardware combinations, OS platforms) with emulation.
+    \item Extensible distributed systems that are made of multiple server instances with virtual machines and containers based on different forms of hosting.
+\end{itemize}
+
+Furthermore, current agentic AI capabilities have reached a significant level through multimodality (a combination of language, vision, audio, etc.), allowing for their orchestration toward specific tasks or the achievement of partial operational autonomy. These intelligent agents could be utilized as lightweight pentesters under customizable scripted scenarios \cite{anthropic2025disrupting}. This approach is effective because even a small specially targeted PoC (proof of concept) script, designed to exploit specific vulnerabilities, can possibly compromise the integrity of highly protected systems. So, it is beyond ordinary brute-forcing or fuzzing due to the flexibility and stochastic behavior of agents. Firstly, the entire infrastructure can be replicated in advance with multiple AI agents (depending on available resources) deployed to perform large-scale automated testing by actively stress- testing the system and identifying its weak points. In this context, they can conduct user/developer-like interactions or simulate entire communities with unique roles as natural traffic inside a digital twin over an extended period of time, thereby revealing hidden aspects of software during runtime, and finding weak points or unpredictable states of IS within extreme conditions. Secondly, they can be fine-tuned and configured for specific tasks by defining behavioral patterns, rules, instruction or goals (e.g., according to use cases or user stories), APIs and tools, their simultaneous amount, etc. Obviously, it is a helpful botnet operating for benefit and risk prevention rather than harm to production systems. Thirdly, a similar approach can be extended to other types of simulations by leveraging game engines to regulate actors within the context of real markets, events, distributed systems, locations, and other cases.
+
+\section{Mechanisms of preventive security system}
+
+There is only a theoretical concept of foundational elements of the solution and their description without strict details on technical aspects and simplification in visualizations in order to be technology-agnostic and portable to other ecosystems. It was decomposed into several parts that align with components and services, ensuring extensibility and customizations. The architectural design is based on the hexagonal architecture because it provides a concept of adapters and ports for replacement or modification of implementations and clear context separation. The driving side represents the system's entry points and exit points, including regular users and external automated systems that interact with the platform through backend APIs and web interfaces over network connections within a client-server model, as shown in Figure \ref{fig:driving_side}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{../figures/driving_side.pdf}
+    \caption{The driving side of the platform as primary entrypoints and interaction interfaces for external systems or clients.}
+    \label{fig:driving_side}
+\end{figure}
+
+The internal part is designed as a modular monolith, divided into multiple components or services, as illustrated in Figure \ref{fig:internal_components_of_application}:
+\begin{itemize}
+    \item "Identity provider, user and session management" - maintains all information about users in the platform with their metadata. Generally, "Authentication" and "Authorization" operate alongside each other, forming a comprehensive set of components responsible for user-related security operations: roles or access control based on permissions, login and register handling, access/refresh token management, checking behavior and actions of the user, multi-factor authentication (MFA), and so on.
+    \item "Groups and project system" - holds multiple analyses in which users can collaborate with each other.
+    \item "Moderation system" and "Administration system" - are intended for platform operators, enabling internal system management and response to user requests as needed.
+    \item "Analyses system" - is a critical component that performs all essential operations required for software analysis.
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{../figures/internal_components_of_application.pdf}
+    \caption{Internal components (i.e., services or subsystems).}
+    \label{fig:internal_components_of_application}
+\end{figure}
+
+Moreover, it has a flexibility aspect that such components can be added, modified, or disabled as needed, which improves security by reducing the attack surface, minimizing system states, decreasing computational complexity, and the factor of combinatorial explosion. The analysis engine in the analysis system also has a plugin and a modding system for fine-grained configuration and operation modes. Firstly, components within the analysis engine are structured according to the actor model, where each component is an object instance, OS process, or container running on the same system or in a distributed environment for scalability. Secondly, some of them are developed for specific use cases related to software packages, container images, computer networks, and other parts of the IT infrastructure. Thirdly, components can be implemented differently but must intercommunicate via JSON-RPC 2.0, and interfaces describe their actions and roles (not limited to the presented set below) operating around the abstraction of "task":
+\begin{itemize}
+    \item "Orchestrator" - is responsible for task queuing, scheduling, and overall management operations. It serves as an intermediate layer that receives tasks directly from the analysis system, each with specific requirements that must be resolved before delegation to other components. For example, there are possible types of task requirements such as a package (single dependency or a group within one or multiple projects in VCS and archive/compressed format), microservices (container image or layers), and other supported resources. At the same time, “Orchestrator” manages and coordinates the overall execution process, acting as the central communication and control hub, because components cannot begin execution without confirmation or explicit request from Orchestrator. Other components in the analysis engine are a form of "task executors" that perform a specific task. The connection between “Orchestrator” and other components follows a one-to-many relationship, where Orchestrator determines which to use among several available ones or to spawn a specific one.
+    \item "Instancer" - provisions and manages via a common API the required environments (e.g., containers, VMs, specific OS or images, etc.).
+    \item "Collector" - continuously or periodically collects data from the created instance (e.g., compares and monitors changes in logs or files, results of build procedure, checking running programs and processes, making image screenshots or recording videos, memory or disk snapshots, constructing a tree of dependencies and processes to manifest file, etc.). Optionally, it is possible to specify a limited scope of data or sources to collect or ignore through regex-based filtering.
+    \item "Interactor" - performs a predefined set of actions or scripted scenarios in an isolated environment to simulate user behavior and trigger malware responses (e.g., interaction with the file system, launching or installing programs, managing input/output devices, etc.).
+    \item "Parser" - transforms the required data into a unified IR or converts it into a format suitable for "Analyzer".
+    \item "Analyzer and Reporter" - produce specific verdicts or predictions based on the received data in a structured report (e.g., determining critical components within a dependency tree, performing other specialized analyses using both stochastic and deterministic algorithms).
+\end{itemize}
+
+Figure \ref{fig:driven_side} illustrates the driven side with infrastructural parts and external integrations. As illustrated in Figure \ref{fig:agent_and_agent-based_strategies}, connectivity principles rely on four distinct concepts that can be flexibly combined: agent-based, agentless, push, and pull. An agent-based (i.e., daemon) approach requires installing specific software directly on each endpoint to transfer data or control the system. In contrast, an agentless approach connects through a single, centralized collector without needing extra software on the endpoints. Depending on which entity triggers the data transfer, these methods can be paired with either "push" or "pull" strategies. In practice, these four concepts can be mixed and matched (e.g., using an agentless pull or an agent-based push architecture). Because each combination has distinct advantages and disadvantages regarding data transmission, organizations should ideally be offered multiple options to choose the best fit for their specific operational and maintenance needs.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{../figures/driven_side.pdf}
+    \caption{The driven side of the platform as utility components.}
+    \label{fig:driven_side}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../figures/agent_and_agent-based_strategies.pdf}
+    \caption{In agent and agent-based strategies, an M:1 ("many-to-one") relationship exists between multiple instances and a single controlnode, with the directional arrow indicating whether a push or pullmodel is being utilized.}
+    \label{fig:agent_and_agent-based_strategies}
+\end{figure}
+
+\section{Concept of a distributed network for AI agents}
+
+We specified mechanisms of consensus and rules by which network participants, as nodes, reach agreement or are configured for correct operations. Our network is based on PoUW for solving useful computing and other defined tasks. There is a primary abstraction termed a “unit of work” that is achieved by completion of relatively "valuable or useful work". The network has two roles of participants who determine the work's usefulness and its intrinsic value:
+\begin{itemize}
+    \item Providers can create tasks by publishing them to the network and determining the validation criteria for received results.
+    \item Contractors can select available tasks from the network and perform/execute them.
+\end{itemize}
+
+During the prototyping and early stages of the system, we consider a limited set of predefined/fixed types of tasks, including data annotation, dataset storage, model inference, and model training. Future iterations of the network will support custom general-purpose and computational tasks that are defined and implemented on the software side via smart contracts on WASM:
+\begin{itemize}
+    \item ASIC-resistance due to the diversity of tasks that cannot be solved using a single method/algorithm.
+    \item Preserving the value of the completed work, compliance with specified criteria, and other features.
+    \item Providing additional packages and functionalities (e.g., visual modifications) for certain specifics of a task.
+\end{itemize}
+
+Figure \ref{fig:gradation_of_work_based_mechanisms} demonstrates that our consensus is an intermediate solution that varies dynamically from task to task. Also, it is possible to combine PoW and PoUW in particular proportions to maintain baseline security guarantees and ensure a seamless transition from legacy networks (e.g., a distribution of 20\% for PoW and 80\% for PoUW).
+
+\newpage
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\textwidth]{../figures/gradation_of_work_based_mechanisms.pdf}
+    \caption{Gradation of work-based consensus mechanisms: Specific one (on the left) is based on a single fixed algorithm or task type. General-purpose one (on the right) is decoupled from computing power, so it is too abstract and difficult to verify. Our PoUW (on the center) is based on computationally provable tasks, but also allows custom general-purpose tasks on demand.}
+    \label{fig:gradation_of_work_based_mechanisms}
+\end{figure}
+
+For example, if organizations need to train an AI models or store public datasets without maintaining their own IT infrastructures, they can acquire tokens to request on-demand computing power by publishing a smart contract that broadcasts/emits their requirements to the network. Then, someone can accept or join the task in a similar way to quests in multiplayer games, as illustrated in Figure \ref{fig:board_of_tasks_and_regular_quests}. Contractors can choose tasks manually or enable an automatic mode to match them based on a specific algorithm or preferences. Alongside tasks from individuals, partner-sponsored storylines and collective missions would provide a continuous stream of work for participants during periods of reduced network activity.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\textwidth]{../figures/board_of_tasks_and_regular_quests.pdf}
+    \caption{Market-driven mechanisms for providers and contractors. In this context, tasks are valued relative to a set rate per unit of work in tokens.}
+    \label{fig:board_of_tasks_and_regular_quests}
+\end{figure}
+
+Furthermore, we propose a concept of fairness, which is achieved through a limited total supply of tokens and an inflation mechanism designed to prevent holding and market monopolization:
+\begin{itemize}
+    \item Initial tokens in the network is generated via a Genesis Task, which handles minting and system bootstrapping, as otherwise token acquisition would be impossible.
+    \item A single wallet has a maximum limit of tokens.
+    \item If tokens are not spent or transferred within a specific timeframe, they gradually burn from the wallet, returning to the limited total supply, as illustrated in Figure \ref{fig:refilling_limited_amount_of_tokens}.
+    \item Network participants have the option to voluntarily burn some amount of tokens to refill total supply.
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\textwidth]{../figures/refilling_limited_amount_of_tokens.pdf}
+    \caption{Refilling of limited total supply by non-active wallets of holders or by burning tokens from their wallets.}
+    \label{fig:refilling_limited_amount_of_tokens}
+\end{figure}
+
+From a technical standpoint, we want to build upon the foundations of IPFS and Ethereum, while introducing proprietary extensions and enhancements. As shown in Figure \ref{fig:brief_components_of_the_network}, a node is any single component within the network that executes our certified cross-platform software (daemon, browser-based, or native) and establishes connections by adhering to the consensus protocol with underlying networking stack. Especially, IPFS has libp2p as its core library, which can be reused for our system, as it provides:
+\begin{itemize}
+    \item DHT (Distributed Hash Table) for data storage management across various network topologies (e.g., mesh, ring, and hybrid).
+    \item Bitswap algorithm for P2P routing and resource/content discovery among the nearest neighboring nodes.
+    \item Other modifiable features and implemented protocols that are essential for building decentralized networks.
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\textwidth]{../figures/brief_components_of_the_network.pdf}
+    \caption{Components of the overlay network: (1). Visualization for portion of heterogeneous nodes with unique identifiers or hashes in the P2P network. (2). Separation of concerns with technical stack.}
+    \label{fig:brief_components_of_the_network}
+\end{figure}
+
+On top of these foundations, there are layered ecosystem to separate users based on their proficiency and interests, as illustrated in Figure \ref{fig:layers_of_the_network}. The first layer is a rich-client wrapper with auto-updates featuring gamification elements and interactive modes, in which published tasks and actions are seamlessly integrated into mini-games and quests. It facilitates active token farming and rewards from in-game assets (e.g., skins, models, and boosts) with social interactions to foster community engagement through private and public chats. The second layer focuses more on technically proficient participants by offering:
+\begin{itemize}
+    \item Passive utilization of computing resources operating as a legitimate miner with a slider for manual load adjustment or automatic dynamic tuning based on available resources. For instance, the system calculates the necessary overhead while maintaining a base cap of approximately 20\% of total device load to prevent hardware wear or excessive battery drain.
+    \item Developing custom smart contracts and hosting decentralized services, such as VCS (Version Control System) hosting of repositories and package registries with distributed CI/CD pipeline execution, transparency, and immutable history.
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\textwidth]{../figures/layers_of_the_network.pdf}
+    \caption{Layers of the network as levels of proficiency.}
+    \label{fig:layers_of_the_network}
+\end{figure}
+
+As shown in Figure \ref{fig:realms_and_subnets}, the system allows connections to various subnets, offering a choice between the main public realm (which requires an internet connection) and alternative subnets. This architecture loosely resembles the mechanics of Usenet groups, which organized multiple nodes based on shared interests or specific characteristics. Furthermore, to ensure fault tolerance against system crashes and data transmission issues, data is backed up to a persistent SQLite database and automatically synchronized upon reconnection.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\textwidth]{../figures/realms_and_subnets.pdf}
+    \caption{Nodes can configure connections to specific realms or subnets by specifying the network's RPC (Remote Procedure Call) URL and associated metadata.}
+    \label{fig:realms_and_subnets}
+\end{figure}

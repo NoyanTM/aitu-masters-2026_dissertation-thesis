@@ -1,0 +1,141 @@
+\RequirePackage[l2tabu]{nag}
+
+\documentclass[a4paper,12pt,oneside,openbib,oldfontcommands]{memoir}
+
+% adding metadata:
+\let\ordinal\relax
+\usepackage{datetime}
+\usepackage{ifpdf}
+\ifpdf
+\pdfinfo{
+   /Author (Author name)
+   /Title (Thesis title)
+   /Keywords (One; Two;Three)
+   /CreationDate (D:\pdfdate)
+}
+\fi
+% when draft option is on 
+\ifdraftdoc 
+	\usepackage{draftwatermark}
+	\SetWatermarkScale{0.3}
+	\SetWatermarkText{\bf Draft: \today}
+\fi
+
+% page layout for A4 paper
+\settrimmedsize{297mm}{210mm}{*}
+\setlength{\trimtop}{0pt} 
+\setlength{\trimedge}{\stockwidth} 
+\addtolength{\trimedge}{-\paperwidth} 
+\settypeblocksize{634pt}{448.13pt}{*} 
+\setulmargins{4cm}{*}{*} 
+\setlrmargins{*}{*}{1.5} 
+\setmarginnotes{17pt}{51pt}{\onelineskip} 
+\setheadfoot{\onelineskip}{2\onelineskip} 
+\setheaderspaces{*}{2\onelineskip}{*} 
+\checkandfixthelayout
+\frenchspacing
+\OnehalfSpacing 
+
+% sets numbering division level
+\setsecnumdepth{subsection} 
+\maxsecnumdepth{subsubsection}
+\makepagestyle{myvf} 
+\makeoddfoot{myvf}{}{\thepage}{} 
+\makeevenfoot{myvf}{}{\thepage}{} 
+\makeheadrule{myvf}{\textwidth}{\normalrulethickness} 
+\makeevenhead{myvf}{\small\textsc{\leftmark}}{}{} 
+\makeoddhead{myvf}{}{}{\small\textsc{\rightmark}}
+\pagestyle{myvf}
+\newcommand{\clearemptydoublepage}{\newpage{\thispagestyle{empty}\cleardoublepage}}
+
+% packages:
+\usepackage{tabularx}
+\usepackage{import}
+\usepackage{glossaries}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{newlfont}
+\usepackage{layouts}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage[square,numbers,sort&compress]{natbib}
+\usepackage{url}
+\usepackage[english]{babel}
+\usepackage[colorlinks=true,allcolors=black]{hyperref}
+\usepackage{memhfixc}
+\usepackage{enumerate}
+\usepackage{footnote}
+\usepackage{microtype}
+\usepackage[version=0.96]{pgf}
+\usepackage{lipsum}
+\usepackage{subcaption}
+\usepackage{xcolor}
+
+% create index for table of contents, list of figures, list of tables and index
+\makeindex % @TODO: possibly remove list of figures and tables
+
+% reduce widows and orphans (first and last lines in paragraph of a page)
+\widowpenalty=1000
+\clubpenalty=1000
+
+% defines keywords small section
+\newcommand{\keywords}[1]{\par\noindent{\small{\textbf{Keywords:}} #1}}
+
+% creates coloured text and background
+\definecolor{UniversityBlue}{RGB}{38,90,130}
+
+% theorem styles
+\theoremstyle{plain}
+\newtheorem{theo}{Theorem}[chapter]
+\theoremstyle{plain}
+\newtheorem{prop}{Proposition}[chapter]
+\theoremstyle{plain}
+\theoremstyle{definition}
+\newtheorem{dfn}{Definition}[chapter]
+\theoremstyle{plain}
+\newtheorem{lema}{Lemma}[chapter]
+\theoremstyle{plain}
+\newtheorem{cor}{Corollary}[chapter]
+\theoremstyle{plain}
+\newtheorem{resu}{Result}[chapter]
+
+\begin{document}
+\frontmatter
+\pagenumbering{roman}
+\input{title}
+\input{abstract}
+% @TODO: \printglossaries \gls command
+\clearemptydoublepage
+\input{dedication}
+\input{declaration}
+\listoftables
+\addtocontents{lot}{\par\nobreak\textbf{{\scshape Table} \hfill Page}\par\nobreak}
+\newpage
+%\clearemptydoublepage
+\listoffigures
+\addtocontents{lof}{\par\nobreak\textbf{{\scshape Figure} \hfill Page}\par\nobreak}
+\newpage
+%\clearemptydoublepage
+\addtocontents{toc}{\par\nobreak \mbox{}\hfill{\bf }\par\nobreak}
+\renewcommand{\contentsname}{Table of Contents}
+\maxtocdepth{subsection}
+\tableofcontents*
+\mainmatter
+\import{}{introduction.tex}
+\import{}{chapter_1.tex}
+\import{}{chapter_2.tex}
+\import{}{chapter_3.tex}
+\import{}{conclusion.tex}
+\appendix
+\import{}{appendices.tex}
+\backmatter
+\bibliographystyle{unsrt}
+%\refstepcounter{chapter}
+\bibliography{bibliography}
+\clearemptydoublepage
+% \printindex
+\end{document}

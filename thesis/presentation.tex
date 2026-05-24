@@ -1,0 +1,232 @@
+\documentclass{beamer}
+\usepackage[backend=biber,style=numeric, citestyle=ieee]{biblatex}
+\addbibresource{references.bib}
+\graphicspath{{./figures/}}
+\setbeamerfont{caption}{size=\tiny}
+\setbeamertemplate{caption}[numbered]
+
+\titlegraphic{\includegraphics[width=3cm]{aitu_logo.png}}
+\title{Development of Secure Lifecycle via Modern Infrastructure-as-Code Methodology}
+\author{Noyan Tendikov, 242710@astanait.edu.kz}
+\institute{Astana IT University, School of Cybersecurity}
+\date{2026}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Table of Contents}
+\tableofcontents
+\end{frame}
+
+\section{Introduction}
+\begin{frame}
+\frametitle{Introduction}
+\begin{itemize}
+    \item Modern cyber conflicts within an intensified arms race between multiple different actors, such as government agencies, armies, corporations, and private groups.
+    \item Under these circumstances, ensuring security is only a continuous process, not an absolute guarantee.
+    \item Associated risks for critical IT infrastructure.
+\end{itemize}
+\begin{block}{Research goal and objectives}
+Construct security measures for the IT infrastructure, emphasizing the process of collecting and accounting of its internal resources or components for reliability and early insider threat prevention.
+\end{block}
+\end{frame}
+
+\section{Literature review}
+\begin{frame}
+\frametitle{Literature review \newline A. Historical development of IT infrastructure}
+The computing ecosystem and its service models have evolved gradually becoming increasingly commercialized to meet customer demands and scaling issues, as broadly represented in Figure \ref{fig:developmental_milestones_of_computing_environment}.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{developmental_milestones_of_computing_environment}
+    \caption{Developmental milestones of computing environments (VM – virtual machine; C – container; PaaS, IaaS, SaaS – external services; 1 – mainframe; 2 – cluster of servers; 3 – geographically distributed servers with virtualization; 4 – hybrid approach with cloud services)}
+    \label{fig:developmental_milestones_of_computing_environment}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Literature review \newline B. Complexity management with codification and
+modeling}
+\begin{columns}
+\column{0.5\textwidth}
+\begin{itemize}
+    \item As IT infrastructure has expanded with its complexity.
+    \item Codification established the paradigm of Infrastructure-as-Code (IaC) to provide maintenance by means of self-documenting code.
+    \item For example, containerization tools like Docker use Dockerfiles, as shown in Figure \ref{fig:iac_as_self_documenting_system}.
+\end{itemize}
+\column{0.5\textwidth}
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{iac_as_self_documenting_system}
+    \caption{Processes of applying changes to servers: (1) Manually. (2) Via IaC pipeline as a self-documenting system.}
+    \label{fig:iac_as_self_documenting_system}
+\end{figure}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Literature review \newline C. Resource management and accounting}
+\begin{itemize}
+    \item OWASP identified 10 major risks for IT infrastructure in which 5 of them are directly related to IT resources accounting \cite{OWASPWwwprojecttop10infrastructuresecurityrisks2025}
+    \item According to statistics of the European Cyber Security Organisation (ECSO), solution-specific logic often represents about 10\% of code while the remainder is third-party dependencies \cite{ECSOWG6TechnicalPaperSoftwareSupplyChainSecurity}.
+    \item As demonstrated in Figure 3, OS (operating system) can be illustration of complex system requiring correct operation of its components providing emergent qualities.
+\end{itemize}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{components_of_abstract_complex_system}
+    \caption{An abstract complex system that is consisted of multiple underlying operational components and subsystem.}
+    \label{fig:components_of_abstract_complex_system}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Literature review \newline C. Resource management and accounting}
+\begin{itemize}
+    \item Given a script in the Python programming language, the internal dependency in this case is the self-contained code, while the external dependency is everything that was created by third-party such as the implementation of standard library, interpreter/compiler, specification, OS, or platform-specific requirements, and so on, as shown on Figure \ref{fig:python_ecosystem_from_perspective_of_dependencies}.
+\end{itemize}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{python_ecosystem_from_perspective_of_dependencies}
+    \caption{Ecosystem of the Python programming language from the perspective of dependencies.}
+    \label{fig:python_ecosystem_from_perspective_of_dependencies}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Literature review \newline C. Software supply chain management and attacks}
+\begin{itemize}
+    \item From a broader perspective, the modern economy is service-oriented and highly interconnected in the global supply chain, where everyone relies on each other, as represented in Figure \ref{fig:simplified_example_of_global_supply_chain}. Hence, engineers can mitigate issues of resource constraints (e.g., schedule, personnel, risks, requirements, finance, and qualifications) by integrating external dependencies and reusing code outsourcing for common problems during the implementation and maintenance of IT products.
+\end{itemize}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{simplified_example_of_global_supply_chain}
+    \caption{Simplified example of the global supply chain in the IT context.}
+    \label{fig:simplified_example_of_global_supply_chain}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Literature review \newline C. Compromise and trust in security}
+\begin{itemize}
+    \item On the other hand, any risks and failures in a single link can cause a cascading effect across the entire chain, which is known as a supply chain attack. This attack vector exposes the ability to implicitly or explicitly influence on any IT infrastructure by leveraging direct and indirect (i.e., transitive) dependencies, invoking instability and fragility.
+    \item Approaches for dependency management:
+        \begin{itemize}
+            \item Manual ("vendoring") - by copying an external dependency directly into the codebase in order to maintain and modify it independently.
+            \item Automatic - dependency/package managers as separate software system that is responsible for retrieving, handling, updating, and executing additional lifecycle operations on project dependencies.
+        \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Literature review \newline C. Compromise and trust in security}
+\begin{tiny}
+\begin{itemize}
+    \item From a theoretical standpoint, dependency resolution is a variation on the topic of the constraint satisfaction problem where the objective is to satisfy a predefined set of conditions and rules (version requirements or other ecosystem-specific rules), as illustrated in Figure \ref{fig:brief_introduction_to_dependency_theory}.
+\end{itemize}
+\end{tiny}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{brief_introduction_to_dependency_theory}
+    \caption{A brief introduction to dependency theory: (1) Version
+constraints that restrict the allowable range of package versions from
+the initial published version to the latest one according to the
+versioning format. Such versions basically represent a variation of the
+same entity. (2) Dependency groups (concept from set theory), which
+delimit or expand the number of required packages, because some
+components can be mandatory while others remain optional. (3) and
+(4) Nested dependency graph (concept from graph theory) with direct
+and transitive ones ("1:M" means "one to many" relationships). In real
+projects, the number of dependencies and constraints is significantly
+larger, leading to dependency conflicts ("dependency hell")
+characterized by cross-references, circular or recursive relations,
+loops, duplicates, and similar pathological structures. These situations
+might be resolved, for example, by flattening the dependency tree into
+a more linear structure.}
+    \label{fig:brief_introduction_to_dependency_theory}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Literature review \newline C. Compromise and trust in security}
+Software composition analysis (SCA) is a structured approach for collecting and accounting software components, defining common specifications (e.g., software bill of materials) and governance principles. General limitations of current SCA:
+\begin{itemize}
+    \item gathering reliable data from software is challenging;
+    \item the amount of supply chain vulnerabilities and incidents continue to increase;
+    \item focusing more on static analysis rather than on dynamic analysis during runtime execution;
+    \item not secure by design as they operate within the local environment instead of isolated or remote setups;
+    \item comprehensive deep scanning of transitive dependencies is often missing;
+    \item insufficient integration with smart and data analytics-based systems.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Literature review \newline C. Compromise and trust in security}
+\begin{small}
+The fragmented software ecosystem worsens this situation, making accountability for the many packages and their adherence to standards unclear \cite{EnablingGlobalCollaboration}.
+\begin{itemize}
+    \item For instance, Mirakhorli et al. reviewed 84 available SBOM management toolkits across multiple programming language ecosystems, which demonstrates the lack of unification and significant fragmentation in current solutions \cite{mirakhorliLandscapeStudyOpen2024}.
+    \item Even a software package that is trusted by the community cannot offer proper guarantees, because mainstream software licenses clearly mention that their products are distributed "as is" condition \cite{wintersgillLawDoesntWork2024}. 
+    \item The principle of "secure by default", where secure policies and good default configurations should become the common for many, and not just the exception reserved for professionals.
+\end{itemize}
+\end{small}
+\end{frame}
+
+\begin{frame}
+\frametitle{Literature review \newline C. Compromise and trust in security}
+The software market should pay more attention and show greater concern for formal regulatory mechanisms to increase trust and responsibility in the community, such as certification, auditing, and transparent processes, along with initiatives aimed at improving standards. Because popular or operation-critical software products have a strong influence on the whole landscape, so compromising them can undermine not just dependent infrastructure but also the global contracts of security, such as the cryptography stack as shown in Figure \ref{fig:intermediary_system_between_design_and_implementation}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{intermediary_system_between_design_and_implementation}
+    \caption{An intermediary system between design and implementation.}
+    \label{fig:intermediary_system_between_design_and_implementation}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Literature review \newline C. Compromise and trust in security}
+Researchers Singer and Bishop propose viewing trust in the form of a relationship model that makes us vulnerable because we rely and depend on a third party without any doubt due to assumptions and distractions, considering them trustworthy \cite{singerTrustBasedSecurityTrust2020}. It means that our inherent tolerance to possible flaws/mistakes due to the factor of trust affects on our cybersecurity posture. Hence, trust should not be considered as a static and accurate indicator, but rather it is a dynamic probability of being trusted by someone else and vice versa, where any mistake from both parties leads to its loss. For example, one of the parties (recipient or sender) can at any time disrupt data transmission and its correctness by intentionally beginning not to adhere to the given standard protocols and interaction interfaces.
+\end{frame}
+
+\section{Methodology}
+\begin{frame}
+\frametitle{Methodology \newline A. Proposal concept and paradigm shift}
+These toolkits can effectively complement modern SCA approaches and enable a paradigm shift, as illustrated in Figure \ref{fig:paradigm_shift_for_sca}. It redirects the purpose of existing solutions toward a different target audience and analytical focus from regular end users to developers. 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{paradigm_shift_for_sca}
+    \caption{Paradigm shift by applying principles from malware and binary analysis for SCA-related tasks.}
+    \label{fig:paradigm_shift_for_sca}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Methodology \newline B. System modeling and operating mechanisms}
+\begin{columns}
+\column{0.5\textwidth}
+\begin{footnotesize}
+Secondly, the application is designed as a modular monolith, as illustrated in Figure \ref{fig:internal_components_of_application}.
+\begin{itemize}
+    \item “Identity provider, user and session management” - maintains all information about users in the platform with their metadata.
+    \item “Groups and project system” - holds multiple analyses in which users can collaborate with each other.
+    \item “Moderation system” and “Administration system” – are intended for platform operators.
+    \item “Analysis system” - is a critical component for software analysis.
+\end{itemize}
+\end{footnotesize}
+\column{0.5\textwidth}
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{internal_components_of_application}
+    \caption{Internal application components of the architecture}
+    \label{fig:internal_components_of_application}
+\end{figure}
+\end{columns}    
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+\begin{tiny}
+\printbibliography
+\end{tiny}
+\end{frame}
+
+\end{document}
