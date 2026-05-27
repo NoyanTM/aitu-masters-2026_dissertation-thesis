@@ -9,6 +9,7 @@ Masters's degree dissertation thesis for "7M06106 Secure Software Engineering" e
 - Used software: texlive, biber, bibtex, plantuml, drawio
 - /figures are built from diagrams.drawio
 - Build latest thesis.pdf via `pdflatex --output-directory=../build/ thesis.tex` (in /thesis) -> `BIBINPUTS="thesis" bibtex build/thesis` (in /) -> `pdflatex --output-directory=../build/ thesis.tex` (in /thesis).
+- Build latest presentation.pdf via `pdflatex --output-directory=../build/ presentation.tex` (in /thesis) -> `BIBINPUTS="thesis" biber build/presentation` (in /) -> `pdflatex --output-directory=../build/ presentation.tex` (in /thesis).
 
 ## Contributions
 - If you want to leave feedback or share your thoughts about this thesis (e.g., found mistakes, omissions, suggestions for expanding understanding on the topic), please open an issue with coherent explanation and corresponding questions in english.

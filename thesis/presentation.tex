@@ -1,232 +1,321 @@
-\documentclass{beamer}
+\documentclass[9pt]{beamer}
+
+\usepackage{ragged2e}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{subcaption}
+\apptocmd{\frame}{}{\justifying}{}
+
 \usepackage[backend=biber,style=numeric, citestyle=ieee]{biblatex}
-\addbibresource{references.bib}
-\graphicspath{{./figures/}}
+\addbibresource{bibliography.bib}
+\graphicspath{{../figures/}}
 \setbeamerfont{caption}{size=\tiny}
 \setbeamertemplate{caption}[numbered]
+\renewcommand*{\bibfont}{\normalfont\small}
 
 \titlegraphic{\includegraphics[width=3cm]{aitu_logo.png}}
 \title{Development of Secure Lifecycle via Modern Infrastructure-as-Code Methodology}
-\author{Noyan Tendikov, 242710@astanait.edu.kz}
-\institute{Astana IT University, School of Cybersecurity}
-\date{2026}
+\author{Student: Tendikov Noyan Maratovich, 242710@astanait.edu.kz \\ Research supervisor: Rzayeva L. G., PhD, Associate Professor}
+\institute{Astana IT University, School of Cybersecurity, 2026}
+\date{}
 
 \begin{document}
 
 \frame{\titlepage}
 
-\begin{frame}
-\frametitle{Table of Contents}
-\tableofcontents
-\end{frame}
-
 \section{Introduction}
 \begin{frame}
 \frametitle{Introduction}
+
+\begin{block}{Problem statement}
+\justifying
 \begin{itemize}
-    \item Modern cyber conflicts within an intensified arms race between multiple different actors, such as government agencies, armies, corporations, and private groups.
-    \item Under these circumstances, ensuring security is only a continuous process, not an absolute guarantee.
-    \item Associated risks for critical IT infrastructure.
+    \item Modern cyber conflicts as an intensified race between multiple actors (e.g., government agencies, corporations, and private groups).
+    \item Internal and external components of any complex software depend on projects and products within a global supply chain.
+    \item Ensuring security is only a continuous process of managing risks in the system's lifecycle rather than an absolute guarantee.
 \end{itemize}
-\begin{block}{Research goal and objectives}
-Construct security measures for the IT infrastructure, emphasizing the process of collecting and accounting of its internal resources or components for reliability and early insider threat prevention.
 \end{block}
+
+\begin{block}{Goal and objectives}
+\justifying
+Construct a secure methodology for the critical IT infrastructure, emphasizing the process of collecting and accounting for its internal resources or components for reliability and early insider threat prevention.
+\end{block}
+
+\begin{block}{Relevance and novely}
+\justifying
+It demonstrates the dynamics of compromised package propagation within a simulated environment and related prevention mechanisms for controlling supply chain attacks via restrictive quality gates.
+\end{block}
+
 \end{frame}
 
 \section{Literature review}
 \begin{frame}
-\frametitle{Literature review \newline A. Historical development of IT infrastructure}
-The computing ecosystem and its service models have evolved gradually becoming increasingly commercialized to meet customer demands and scaling issues, as broadly represented in Figure \ref{fig:developmental_milestones_of_computing_environment}.
-\begin{figure}
-    \centering
-    \includegraphics[width=0.9\linewidth]{developmental_milestones_of_computing_environment}
-    \caption{Developmental milestones of computing environments (VM – virtual machine; C – container; PaaS, IaaS, SaaS – external services; 1 – mainframe; 2 – cluster of servers; 3 – geographically distributed servers with virtualization; 4 – hybrid approach with cloud services)}
-    \label{fig:developmental_milestones_of_computing_environment}
-\end{figure}
-\end{frame}
-
-\begin{frame}
-\frametitle{Literature review \newline B. Complexity management with codification and
-modeling}
+\frametitle{Literature review}
+\framesubtitle{A. Resource management and accounting}
 \begin{columns}
-\column{0.5\textwidth}
-\begin{itemize}
-    \item As IT infrastructure has expanded with its complexity.
-    \item Codification established the paradigm of Infrastructure-as-Code (IaC) to provide maintenance by means of self-documenting code.
-    \item For example, containerization tools like Docker use Dockerfiles, as shown in Figure \ref{fig:iac_as_self_documenting_system}.
-\end{itemize}
-\column{0.5\textwidth}
-\begin{figure}
-    \centering
-    \includegraphics[width=1.0\linewidth]{iac_as_self_documenting_system}
-    \caption{Processes of applying changes to servers: (1) Manually. (2) Via IaC pipeline as a self-documenting system.}
-    \label{fig:iac_as_self_documenting_system}
-\end{figure}
+    \begin{column}{0.5\textwidth}
+        \begin{itemize}
+            \justifying
+            \item Usually, solution-specific logic often represents about 10\% of code while the remainder is third-party dependencies \cite{ecso2024technical}. Figure \ref{fig:python_ecosystem_from_perspective_of_dependencies} shows external and internal dependencies for the Python ecosystem.
+            \item Software composition analysis (SCA) and software bill of materials (SBOM) act as a structured approach for collecting and accounting software components, but toolkits lack unification due to the fragmentation of ecosystems \cite{mirakhorli2024landscape}.
+        \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=1.0\linewidth]{python_ecosystem_from_perspective_of_dependencies}
+            \caption{Ecosystem of the Python programming language from the perspective of dependencies.}
+            \label{fig:python_ecosystem_from_perspective_of_dependencies}
+        \end{figure}
+    \end{column}
 \end{columns}
 \end{frame}
 
 \begin{frame}
-\frametitle{Literature review \newline C. Resource management and accounting}
-\begin{itemize}
-    \item OWASP identified 10 major risks for IT infrastructure in which 5 of them are directly related to IT resources accounting \cite{OWASPWwwprojecttop10infrastructuresecurityrisks2025}
-    \item According to statistics of the European Cyber Security Organisation (ECSO), solution-specific logic often represents about 10\% of code while the remainder is third-party dependencies \cite{ECSOWG6TechnicalPaperSoftwareSupplyChainSecurity}.
-    \item As demonstrated in Figure 3, OS (operating system) can be illustration of complex system requiring correct operation of its components providing emergent qualities.
-\end{itemize}
+\frametitle{Literature review}
+\framesubtitle{B. Supply chain attacks on software dependencies}
+\justifying
+Any risks and failures in a single link can cause a cascading effect across the entire global supply chain, exposing the ability to implicitly or explicitly influence on any IT infrastructure by leveraging direct and indirect/transitive dependencies, as provided in Figure \ref{fig:brief_introduction_to_dependency_theory}.
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\linewidth]{components_of_abstract_complex_system}
-    \caption{An abstract complex system that is consisted of multiple underlying operational components and subsystem.}
-    \label{fig:components_of_abstract_complex_system}
-\end{figure}
-\end{frame}
-
-\begin{frame}
-\frametitle{Literature review \newline C. Resource management and accounting}
-\begin{itemize}
-    \item Given a script in the Python programming language, the internal dependency in this case is the self-contained code, while the external dependency is everything that was created by third-party such as the implementation of standard library, interpreter/compiler, specification, OS, or platform-specific requirements, and so on, as shown on Figure \ref{fig:python_ecosystem_from_perspective_of_dependencies}.
-\end{itemize}
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\linewidth]{python_ecosystem_from_perspective_of_dependencies}
-    \caption{Ecosystem of the Python programming language from the perspective of dependencies.}
-    \label{fig:python_ecosystem_from_perspective_of_dependencies}
-\end{figure}
-\end{frame}
-
-\begin{frame}
-\frametitle{Literature review \newline C. Software supply chain management and attacks}
-\begin{itemize}
-    \item From a broader perspective, the modern economy is service-oriented and highly interconnected in the global supply chain, where everyone relies on each other, as represented in Figure \ref{fig:simplified_example_of_global_supply_chain}. Hence, engineers can mitigate issues of resource constraints (e.g., schedule, personnel, risks, requirements, finance, and qualifications) by integrating external dependencies and reusing code outsourcing for common problems during the implementation and maintenance of IT products.
-\end{itemize}
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\linewidth]{simplified_example_of_global_supply_chain}
-    \caption{Simplified example of the global supply chain in the IT context.}
-    \label{fig:simplified_example_of_global_supply_chain}
-\end{figure}
-\end{frame}
-
-\begin{frame}
-\frametitle{Literature review \newline C. Compromise and trust in security}
-\begin{itemize}
-    \item On the other hand, any risks and failures in a single link can cause a cascading effect across the entire chain, which is known as a supply chain attack. This attack vector exposes the ability to implicitly or explicitly influence on any IT infrastructure by leveraging direct and indirect (i.e., transitive) dependencies, invoking instability and fragility.
-    \item Approaches for dependency management:
-        \begin{itemize}
-            \item Manual ("vendoring") - by copying an external dependency directly into the codebase in order to maintain and modify it independently.
-            \item Automatic - dependency/package managers as separate software system that is responsible for retrieving, handling, updating, and executing additional lifecycle operations on project dependencies.
-        \end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Literature review \newline C. Compromise and trust in security}
-\begin{tiny}
-\begin{itemize}
-    \item From a theoretical standpoint, dependency resolution is a variation on the topic of the constraint satisfaction problem where the objective is to satisfy a predefined set of conditions and rules (version requirements or other ecosystem-specific rules), as illustrated in Figure \ref{fig:brief_introduction_to_dependency_theory}.
-\end{itemize}
-\end{tiny}
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\linewidth]{brief_introduction_to_dependency_theory}
-    \caption{A brief introduction to dependency theory: (1) Version
-constraints that restrict the allowable range of package versions from
-the initial published version to the latest one according to the
-versioning format. Such versions basically represent a variation of the
-same entity. (2) Dependency groups (concept from set theory), which
-delimit or expand the number of required packages, because some
-components can be mandatory while others remain optional. (3) and
-(4) Nested dependency graph (concept from graph theory) with direct
-and transitive ones ("1:M" means "one to many" relationships). In real
-projects, the number of dependencies and constraints is significantly
-larger, leading to dependency conflicts ("dependency hell")
-characterized by cross-references, circular or recursive relations,
-loops, duplicates, and similar pathological structures. These situations
-might be resolved, for example, by flattening the dependency tree into
-a more linear structure.}
+    \includegraphics[width=1.0\linewidth]{brief_introduction_to_dependency_theory}
+    \caption{Dependency resolution is a variation on the topic of the constraint satisfaction problem where the objective is to satisfy a predefined set of conditions and rules (version requirements or other ecosystem-specific rules).}
     \label{fig:brief_introduction_to_dependency_theory}
 \end{figure}
 \end{frame}
 
 \begin{frame}
-\frametitle{Literature review \newline C. Compromise and trust in security}
-Software composition analysis (SCA) is a structured approach for collecting and accounting software components, defining common specifications (e.g., software bill of materials) and governance principles. General limitations of current SCA:
-\begin{itemize}
-    \item gathering reliable data from software is challenging;
-    \item the amount of supply chain vulnerabilities and incidents continue to increase;
-    \item focusing more on static analysis rather than on dynamic analysis during runtime execution;
-    \item not secure by design as they operate within the local environment instead of isolated or remote setups;
-    \item comprehensive deep scanning of transitive dependencies is often missing;
-    \item insufficient integration with smart and data analytics-based systems.
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Literature review \newline C. Compromise and trust in security}
+\frametitle{Literature review}
+\framesubtitle{C. Compromise and trust}
+\justifying
 \begin{small}
-The fragmented software ecosystem worsens this situation, making accountability for the many packages and their adherence to standards unclear \cite{EnablingGlobalCollaboration}.
+Figure \ref{fig:intermediary_system_between_design_and_implementation} reveals that any operation-critical or intermediary system can affect the dependent infrastructure within trust relationship models:
 \begin{itemize}
-    \item For instance, Mirakhorli et al. reviewed 84 available SBOM management toolkits across multiple programming language ecosystems, which demonstrates the lack of unification and significant fragmentation in current solutions \cite{mirakhorliLandscapeStudyOpen2024}.
-    \item Even a software package that is trusted by the community cannot offer proper guarantees, because mainstream software licenses clearly mention that their products are distributed "as is" condition \cite{wintersgillLawDoesntWork2024}. 
-    \item The principle of "secure by default", where secure policies and good default configurations should become the common for many, and not just the exception reserved for professionals.
+    \item Static trust - reliance on a third party without any doubt due to assumptions and distractions, considering them trustworthy.
+    \item Dynamic trust - dynamic probability of being trusted by someone else and vice versa, where any mistake from both parties leads to its loss by some amount \cite{singer2020trust}.
+    \item Zero trust - continuous verification evaluation of all actions and actors instead of granting full access within a protected perimeter, assuming operating in a hostile environment \cite{rose2020zero}.
 \end{itemize}
 \end{small}
-\end{frame}
-
-\begin{frame}
-\frametitle{Literature review \newline C. Compromise and trust in security}
-The software market should pay more attention and show greater concern for formal regulatory mechanisms to increase trust and responsibility in the community, such as certification, auditing, and transparent processes, along with initiatives aimed at improving standards. Because popular or operation-critical software products have a strong influence on the whole landscape, so compromising them can undermine not just dependent infrastructure but also the global contracts of security, such as the cryptography stack as shown in Figure \ref{fig:intermediary_system_between_design_and_implementation}
 \begin{figure}
     \centering
-    \includegraphics[width=0.7\linewidth]{intermediary_system_between_design_and_implementation}
-    \caption{An intermediary system between design and implementation.}
+    \includegraphics[width=1.0\linewidth]{intermediary_system_between_design_and_implementation}
+    \caption{Intermediary system between design and implementation.}
     \label{fig:intermediary_system_between_design_and_implementation}
 \end{figure}
 \end{frame}
 
-\begin{frame}
-\frametitle{Literature review \newline C. Compromise and trust in security}
-Researchers Singer and Bishop propose viewing trust in the form of a relationship model that makes us vulnerable because we rely and depend on a third party without any doubt due to assumptions and distractions, considering them trustworthy \cite{singerTrustBasedSecurityTrust2020}. It means that our inherent tolerance to possible flaws/mistakes due to the factor of trust affects on our cybersecurity posture. Hence, trust should not be considered as a static and accurate indicator, but rather it is a dynamic probability of being trusted by someone else and vice versa, where any mistake from both parties leads to its loss. For example, one of the parties (recipient or sender) can at any time disrupt data transmission and its correctness by intentionally beginning not to adhere to the given standard protocols and interaction interfaces.
-\end{frame}
-
 \section{Methodology}
 \begin{frame}
-\frametitle{Methodology \newline A. Proposal concept and paradigm shift}
-These toolkits can effectively complement modern SCA approaches and enable a paradigm shift, as illustrated in Figure \ref{fig:paradigm_shift_for_sca}. It redirects the purpose of existing solutions toward a different target audience and analytical focus from regular end users to developers. 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\linewidth]{paradigm_shift_for_sca}
-    \caption{Paradigm shift by applying principles from malware and binary analysis for SCA-related tasks.}
-    \label{fig:paradigm_shift_for_sca}
-\end{figure}
+\frametitle{Methodology}
+\framesubtitle{A. Theoretical methodology and paradigm shift}
+\begin{columns}
+    \begin{column}{0.5\textwidth}
+    \begin{small}
+    \begin{itemize}
+        \justifying
+        \item Figure \ref{fig:paradigm_shift_for_sca} and \ref{fig:transition_to_continuous_security_cycle} illustrate a paradigm shift by redirecting towards software examination within isolated execution environments and digital twins as preventive mechanism and continuous security lifecycle for any component in IT infrastructure.
+        \item Current intelligent agentic systems can be utilized and orchestrated with partial autonomy as lightweight attackers, producing small targeted PoC (proof of concept) scripts and a set of operations to exploit and explore vulnerabilities beyond ordinary brute-forcing or fuzzing due to their flexibility and stochastic behavior \cite{anthropic2025disrupting}.
+    \end{itemize}
+    \end{small}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    \begin{figure}
+        \centering
+        \includegraphics[width=1.0\linewidth]{paradigm_shift_for_sca}
+        \caption{Paradigm shift by applying principles from malware and binary analysis for SCA-related tasks.}
+        \label{fig:paradigm_shift_for_sca}
+        \includegraphics[width=1.0\linewidth]{transition_to_continuous_security_cycle}
+        \caption{Transition to cycle of continuous security (SOC - security operations center; MSSP - managed security service provider): (1) Passive analysis with sandboxes and honeypots. (2) Proactive analysis with digital twins of IT infrastructures with AI agents.}
+        \label{fig:transition_to_continuous_security_cycle}
+    \end{figure}
+    \end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}
-\frametitle{Methodology \newline B. System modeling and operating mechanisms}
-\begin{columns}
-\column{0.5\textwidth}
-\begin{footnotesize}
-Secondly, the application is designed as a modular monolith, as illustrated in Figure \ref{fig:internal_components_of_application}.
+\frametitle{Methodology}
+\framesubtitle{B. Applying methodology to PyPI platform}
+{\scriptsize
+Figure 6 illustrates R(P, t) as a recommendation from the preventive quality gate for packages in PyPI repository.
+}
+
+\begin{flushleft}
+{\scriptsize
+$R(P, t) = 
+\begin{cases} 
+    \text{block} & \text{if } T(P) < T_{\text{min}} \\
+    \text{delay}(w(T)) & \text{if } T_{\text{min}} \le T(P) < T_{\text{trust}} \text{ and } t - t_{\text{sub}} < w(T(P)) \\
+    \text{approve} & \text{otherwise}
+\end{cases}$ \\[0.4em]
+$T(P) = f(A(P), M(P)) \in [lowest\_score, highest\_score]$
+}
+\end{flushleft}
+
+{\tiny
+\noindent
+Where:
 \begin{itemize}
-    \item “Identity provider, user and session management” - maintains all information about users in the platform with their metadata.
-    \item “Groups and project system” - holds multiple analyses in which users can collaborate with each other.
-    \item “Moderation system” and “Administration system” – are intended for platform operators.
-    \item “Analysis system” - is a critical component for software analysis.
+    \setlength{\itemsep}{1pt}
+    \setlength{\parsep}{0pt}
+    \setlength{\topsep}{2pt}
+    \setlength{\partopsep}{0pt}
+    \item P: New incoming package instance or its version.
+    \item T(P): Trust score/factor (e.g., from 0 to 1000 points) mapping analysis A(P) and package metadata M(P). It also includes temporal reasoning by systematically analyzing the history of a package across multiple versions or snapshots.
+    \item $w(T(P))$: Dynamic quarantine window designed to slow down potential malware, virus, or worm propagation via time limits and restrictions.
+    \item $t_{\text{sub}}$: Ingestion timestamp; $T_{\text{min}}, T_{\text{trust}}$: Threshold levels for automatic policy enforcement.
+    \item Statuses: block (prevent publication for public and mark as untrusted), delay (pending additional review on hold or retries), accept (passed attestations and initial time limits).
 \end{itemize}
-\end{footnotesize}
-\column{0.5\textwidth}
+}
+
 \begin{figure}
     \centering
-    \includegraphics[width=1.0\linewidth]{internal_components_of_application}
-    \caption{Internal application components of the architecture}
-    \label{fig:internal_components_of_application}
+    \includegraphics[width=0.95\textwidth,height=0.40\textheight,keepaspectratio]{secure_software_pipeline}
+    \vspace{-5pt}
+    \caption{Integrating the secure software pipeline to PyPI}
+    \label{fig:secure_software_pipeline}
 \end{figure}
-\end{columns}    
+
 \end{frame}
 
-\begin{frame}[allowframebreaks]
-\begin{tiny}
-\printbibliography
-\end{tiny}
+\section{Results and discussion}
+\begin{frame}
+\frametitle{Results and discussion}
+\framesubtitle{A. Parameters of a software supply chain simulation}
+
+\begin{columns}[T]
+    \begin{column}{0.45\textwidth}
+        \justifying
+        \begin{small}
+        Modeling discrete event simulation via SimPy library with actors and their behaviors/interactions at a regular rate (one simulation step is one day with actors performing one action per step):
+        \begin{itemize}
+            \justifying
+            \item Developer or regular user: install packages, manage installations, report suspicious packages, and perform self-checks to decompromise.
+            \item Package publisher: create new packages and release updated versions under governing constraints.
+            \item Threat actor: release malicious versions by impersonating or hijacking legitimate publishers or other ways of hacking software supply chain.
+        \end{itemize}
+        \end{small}
+    \end{column}
+    \begin{column}{0.55\textwidth}
+        \begin{table}
+        \centering
+        \tiny
+        \setlength{\tabcolsep}{3pt}
+        \renewcommand{\arraystretch}{1.3}
+        \begin{tabular}{|>{\centering\arraybackslash}p{2.9cm}|>{\centering\arraybackslash}p{2.9cm}|}
+        \hline
+        \textbf{Fields} & \textbf{Values} \\ \hline
+        random\_seed & 42 \\ \hline
+        num\_developers & 300 \\ \hline
+        num\_threat\_actors & 5 \\ \hline
+        max\_publishers & 30 \\ \hline
+        max\_packages & 500 (unique by names) \\ \hline
+        max\_package\_per\_publisher & 20 \\ \hline
+        max\_package\_versions & 9 (variations of package) \\ \hline
+        max\_steps & 365 \\ \hline
+        developer\_actions & check\_state 45\%, install\_package 20\%, change\_package 30\%, remove\_package 5\% \\ \hline
+        publisher\_actions & publish\_package 25\%, update\_package 75\% \\ \hline
+        developer\_decompromise\_success & 50\% \\ \hline
+        package\_compromisation\_reveal\_time & range(7, 14) \\ \hline
+        threat\_actor\_attack\_rate & 14 \\ \hline
+        \end{tabular}
+        \caption{All simulation parameters can be customized within a JSON file.}
+        \end{table}
+    \end{column}
+\end{columns}
 \end{frame}
+
+\begin{frame}
+\frametitle{Results and discussion}
+\framesubtitle{B. Results of software supply chain simulation}
+\vspace{0.6em}
+\begin{small}
+We acknowledge that findings in Figure \ref{fig:results_of_computer_simulation} are highly influenced by predefined parameters, so real-world metrics may vary and can be more detailed (e.g., events in hours and minutes instead of days).
+\end{small}
+\vspace{-0.6em}
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[t]{0.52\textwidth}
+        \vspace{0pt}
+        \centering
+        \includegraphics[width=1.0\linewidth, height=5.0cm]{compromisation_trends_in_simulation} 
+        \caption{\justifying Trends in the propagation of packages and developers compromisation with a rapid creation of clean packages from package publishers and reaching a plateau due to strict limits.}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \vspace{0pt}
+        \centering
+        \includegraphics[width=0.95\linewidth]{integrity_snapshot_in_simulation}
+        \vspace{-1.0em} 
+        \begin{subfigure}[b]{1.0\linewidth}
+            \centering
+            \includegraphics[width=0.63\linewidth]{attack_grid_on_dependencies}
+            \caption{\justifying Integrity snapshot of the final state of a simulation. The number of compromised developers fluctuates around 100 out of a total of 300 developers, so a small count of 261 infected package instances out of 2476 total packages can affect one-third of all developers in the ecosystem.}
+        \end{subfigure}
+    \end{subfigure}
+    \caption{Results of a single simulation iteration of software supply chain.}
+    \label{fig:results_of_computer_simulation}
+\end{figure}
+\end{frame}
+
+\section{Conclusion}
+\begin{frame}
+\frametitle{Conclusion}
+\begin{itemize}
+    \justifying
+    \item Limitations - our simulation is only an abstract model designed to represent a limited subset of reality with assumptions, which is essential for predictive analysis in scenarios that are too costly or dangerous to test on production systems.
+    \item Findings and contributions: 
+    \begin{itemize}
+        \justifying
+        \item Developed foundations of a system lifecycle and preventive security principles, focusing on internal threats in software ecosystems.
+        \item The importance of cybersecurity will only continue to grow as an essential component of any system development lifecycle and IT infrastructure.
+        \item Basic hygiene of software dependencies involves: 
+        \begin{itemize}
+            \justifying
+            \item version pinning instead of using latest ones;
+            \item checking hashsum of artifacts and signed certificates;
+            \item stable versions with security backports unless mitigating CVEs;
+            \item disabling post-install scripts during installation;
+            \item preliminary dependency tree analysis and indexing;
+            \item blocking versions of packages younger than 30 days;
+            \item vendoring as reuse of locally pre-installed packages.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Publications and future works}
+Research publications:
+\begin{itemize}
+    \justifying
+    \item SIST 2026 (Accepted for publication) - "Customizable methodology for structured analysis of software within isolated computational environments to secure critical IT infrastructures".
+    \item ICCSDFAI 2026 (Waiting for review) - "Distributed and local computing on low-end devices from data privacy and decentralization perspectives".
+    \item MDPI 2026 (Work in progress) - "Attacking agentic systems via automatically and iteratively crafting prompt injections within agent skills with bypassing of initial defensive scanners".
+\end{itemize}
+Directions of future works: 
+\begin{itemize}
+    \justifying
+    \item Revealing attacks on agentic systems and their operational unreliability under certain conditions.
+    \item Conducting advanced experiments on an attacker-defender simulation that leverages small local models as multiple agents.
+    \item Practically implementing a national software ecosystem by applying the developed secure lifecycle of continuous repository analysis.
+\end{itemize}
+\end{frame}
+
+\section{Bibliography and sources}
+{\setbeamertemplate{frametitle continuation}{}
+\begin{frame}[allowframebreaks]
+\frametitle{Bibliography and sources}
+\begin{small}
+Source files with additional materials are provided in:
+\begin{itemize}
+    \item \url{https://github.com/NoyanTM/aitu-masters-2026_dissertation-thesis}
+    \item \url{https://github.com/NoyanTM/aitu-sist-2026_research-paper}
+    \item \url{https://github.com/NoyanTM/iccsfai-2026_research-paper}
+    \item \url{https://github.com/NoyanTM/mdpi-2026_research-paper}
+\end{itemize}
+\end{small}
+\printbibliography
+\end{frame}
+}
 
 \end{document}
