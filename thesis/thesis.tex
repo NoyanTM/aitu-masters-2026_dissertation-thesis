@@ -21,9 +21,6 @@
 	\SetWatermarkText{\bf Draft: \today}
 \fi
 
-% directory for graphics materials
-\graphicspath{{../figures/}}
-
 % page layout for A4 paper
 \settrimmedsize{297mm}{210mm}{*}
 \setlength{\trimtop}{0pt} 
@@ -78,8 +75,11 @@
 \usepackage{subcaption}
 \usepackage{xcolor}
 
+% directory for graphics materials
+\graphicspath{{../figures/}}
+
 % create index for table of contents, list of figures, list of tables and index
-\makeindex % @TODO: possibly remove list of figures and tables
+\makeindex
 
 % reduce widows and orphans (first and last lines in paragraph of a page)
 \widowpenalty=1000
