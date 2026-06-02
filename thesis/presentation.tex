@@ -260,42 +260,24 @@ We acknowledge that findings in Figure \ref{fig:results_of_computer_simulation} 
 \section{Conclusion}
 \begin{frame}
 \frametitle{Conclusion}
+\begin{small}
 \justifying
 Limitations - our simulation is an abstract model designed to represent a limited subset of reality based on certain assumptions, which is essential for predictive analysis in scenarios that are too costly or dangerous to test on production systems.\\
 \vspace{0.5cm}
 Findings and contributions: 
 \begin{itemize}
     \justifying
-    \item Developed foundations of a system lifecycle and preventive security principles, focusing on internal threats in software ecosystems.
+    \item Developed foundations of a system lifecycle and preventive security principles, focusing on internal threats in software ecosystems, as represented in Figure \ref{fig:supply_chain_security_during_all_lifecycle}.
     \item The importance of cybersecurity will only continue to grow as an essential component of any system development lifecycle and IT infrastructure.
     \item Iterative refinement and secure-by-design approach are ways toward securing systems against systemic vulnerabilities.
 \end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Conclusion}
-\begin{small}
-Figure \ref{fig:supply_chain_security_during_all_lifecycle} demonstrates that protection principles against compromised software dependencies and supply chain attacks from the perspective of endpoints include:
-\begin{itemize}
-    \justifying
-    \item pinning specific package versions rather than the latest releases;
-    \item verifying artifact hashsums and validating cryptographic signatures;
-    \item adhering to stable versions with security backports, except mitigating critical CVEs;
-    \item disabling automatic updates and post-installation scripts;
-    \item conducting preliminary analysis and indexing of the dependency tree;
-    \item restricting package versions that were published less than 30 days ago;
-    \item implementing vendoring to reuse locally pre-installed packages;
-    \item hosting and curating private package repository;
-    \item minimizing number of dependencies by using the standard library or lightweight libraries over frameworks and writing only task-specific code.
-\end{itemize}
-\end{small}
-
 \begin{figure}
     \centering
     \includegraphics[width=1.0\linewidth]{supply_chain_security_during_all_lifecycle}
     \caption{The lifecycle of software supply chain security: (1) Primary and secondary distributors with supplementary utilities. (2) Transportations paths and transits for delivering (CI/CD pipelines, networking protocols, mirrors, etc.). (3) Users and IT systems.}
     \label{fig:supply_chain_security_during_all_lifecycle}
 \end{figure}
+\end{small}
 \end{frame}
 
 \begin{frame}
@@ -327,6 +309,7 @@ Source files with additional materials are provided in:
     \item \url{https://github.com/NoyanTM/aitu-sist-2026_research-paper}
     \item \url{https://github.com/NoyanTM/iccsfai-2026_research-paper}
     \item \url{https://github.com/NoyanTM/mdpi-2026_research-paper}
+    \item \url{https://github.com/NoyanTM/blog}
 \end{itemize}
 \end{small}
 \printbibliography
