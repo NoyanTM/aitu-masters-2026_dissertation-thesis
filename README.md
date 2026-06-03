@@ -4,7 +4,7 @@ Masters's degree dissertation thesis for "7M06106 Secure Software Engineering" e
 ## Description
 - Based on "the University of Southampton Thesis Template", Methodological Guidelines for Preparing Master’s Theses of «Astana IT University» LLP, and Kazakhstan's GOST requirements of 7.32-2017.
 - It is one of the foundation for `codecore` which initiates related ecosystem of solutions/methods (`codestash`, `fastsandbox`, `codeless`, `codeload`, etc.). 
-- Basically, this work is an extended version of https://github.com/NoyanTM/aitu-sist-2026_research-paper and https://github.com/NoyanTM/iccsfai-2026_research-paper.
+- Basically, this work is an extended version of https://github.com/NoyanTM/aitu-sist-2026_research-paper and https://github.com/NoyanTM/iccsdfai-2026_research-paper.
 
 ## Requirements
 - Used software: texlive, biber, bibtex, plantuml, drawio
